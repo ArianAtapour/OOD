@@ -1,0 +1,12 @@
+
+0
+java:S1220""Move this file to a named package.
+b
+java:S1659:"GDeclare "itemNumber" and all following declarations on a separate line.(ı¤Ëüÿÿÿÿ
+S	java:S106i"9Replace this use of System.out or System.err by a logger.(ÅÉÀÆÿÿÿÿÿ
+N	java:S106u"9Replace this use of System.out or System.err by a logger.(õ½
+a
+java:S6201Š"JReplace this instanceof check and cast with 'instanceof TextItem textitem'(¾ûñÉ
+e
+java:S6201"NReplace this instanceof check and cast with 'instanceof BitmapItem bitmapitem'(¯’ëÀ
+T	java:S106’"9Replace this use of System.out or System.err by a logger.(Ô—ßÿûÿÿÿÿ
