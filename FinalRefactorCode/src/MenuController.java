@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 public class MenuController extends MenuBar {
 
 	//FIX 13 Making parentF variable final
-	//FIX 58 changing parent name to something else (parentF) since it is used a field with the same name in MenuComponent
+	//FIX 58 changing parent name to something else (parentF) since it is used a field with the same name in MenuController
 	private final Frame parentF; //The frame, only used as parentF for the Dialogs
 	//FIX 14 Making presentation variable final
 
@@ -57,7 +57,7 @@ public class MenuController extends MenuBar {
 		presentation = pres;
 		MenuItem menuItem;
 		Menu fileMenu = new Menu(FILE);
-		//FIX 60 Extracted the assignment out of the expression (filemMenu.add)
+		//FIX 60-65 Extracted the assignment out of the expression (filemMenu.add)
 		menuItem = getMenuItem(fileMenu, OPEN);
 		//FIX 16 - 23 Used lambda expression for ActionListener to enable functional programming and improve functionality
 		menuItem.addActionListener(actionEvent -> {
