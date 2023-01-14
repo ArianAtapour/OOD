@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -35,19 +34,11 @@ public class SlideViewerComponent extends JComponent {
 	//FIX 36 Annotate @Serial serialVersionUID variable
 	@Serial
 	private static final long serialVersionUID = 227L;
-	
-	private static final Color BGCOLOR = Color.white;
-	private static final Color COLOR = Color.black;
-	private static final String FONTNAME = "Dialog";
-	private static final int FONTSTYLE = Font.BOLD;
-	private static final int FONTHEIGHT = 10;
-	private static final int XPOS = 1100;
-	private static final int YPOS = 20;
 
 	public SlideViewerComponent(Presentation pres, JFrame frame) {
-		setBackground(BGCOLOR); 
+		setBackground(SlideViewerStyleProprieties.BGCOLOR);
 		presentation = pres;
-		labelFont = new Font(FONTNAME, FONTSTYLE, FONTHEIGHT);
+		labelFont = new Font(SlideViewerStyleProprieties.FONTNAME, SlideViewerStyleProprieties.FONTSTYLE, SlideViewerStyleProprieties.FONTHEIGHT);
 		this.frame = frame;
 	}
 
@@ -72,16 +63,16 @@ public class SlideViewerComponent extends JComponent {
 	//FIX 74 Adding @Override annotation
 	@Override
 	public void paintComponent(Graphics g) {
-		g.setColor(BGCOLOR);
+		g.setColor(SlideViewerStyleProprieties.BGCOLOR);
 		g.fillRect(0, 0, getSize().width, getSize().height);
 		if (presentation.getSlideNumber() < 0 || slide == null) {
 			return;
 		}
 		g.setFont(labelFont);
-		g.setColor(COLOR);
+		g.setColor(SlideViewerStyleProprieties.COLOR);
 		g.drawString("Slide " + (1 + presentation.getSlideNumber()) + " of " +
-                 presentation.getSize(), XPOS, YPOS);
-		Rectangle area = new Rectangle(0, YPOS, getWidth(), (getHeight() - YPOS));
+                 presentation.getSize(), SlideViewerStyleProprieties.XPOS, SlideViewerStyleProprieties.YPOS);
+		Rectangle area = new Rectangle(0, SlideViewerStyleProprieties.YPOS, getWidth(), (getHeight() - SlideViewerStyleProprieties.YPOS));
 		slide.draw(g, area, this);
 	}
 }

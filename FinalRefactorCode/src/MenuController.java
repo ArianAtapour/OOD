@@ -31,77 +31,57 @@ public class MenuController extends MenuBar {
 	//FIX 15 Using @Serial annotation for serialVersionUID to give compile-time assurance
 	@Serial
 	private static final long serialVersionUID = 227L;
-	
-	protected static final String ABOUT = "About";
-	protected static final String FILE = "File";
-	protected static final String EXIT = "Exit";
-	protected static final String GOTO = "Go to";
-	protected static final String HELP = "Help";
-	protected static final String NEW = "New";
-	protected static final String NEXT = "Next";
-	protected static final String OPEN = "Open";
-	protected static final String PAGENR = "Page number?";
-	protected static final String PREV = "Prev";
-	protected static final String SAVE = "Save";
-	protected static final String VIEW = "View";
-	
-	protected static final String TESTFILE = "testPresentation.xml";
-	protected static final String SAVEFILE = "savedPresentation.xml";
-	
-	protected static final String IOEX = "IO Exception: ";
-	protected static final String LOADERR = "Load Error";
-	protected static final String SAVEERR = "Save Error";
 
 	public MenuController(Frame frame, Presentation pres) {
 		parentF = frame;
 		presentation = pres;
 		MenuItem menuItem;
-		Menu fileMenu = new Menu(FILE);
+		Menu fileMenu = new Menu(MenuButtons.FILE);
 		//FIX 60-65 Extracted the assignment out of the expression (filemMenu.add)
-		menuItem = getMenuItem(fileMenu, OPEN);
+		menuItem = getMenuItem(fileMenu, MenuButtons.OPEN);
 		//FIX 16 - 23 Used lambda expression for ActionListener to enable functional programming and improve functionality
 		menuItem.addActionListener(actionEvent -> {
 			presentation.clear();
 			Accessor xmlAccessor = new XMLAccessor();
 			try {
-				xmlAccessor.loadFile(presentation, TESTFILE);
+				xmlAccessor.loadFile(presentation, MenuButtons.TESTFILE);
 				presentation.setSlideNumber(0);
 			} catch (IOException exc) {
-				JOptionPane.showMessageDialog(parentF, IOEX + exc,
-				 LOADERR, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(parentF, MenuButtons.IOEX + exc,
+						MenuButtons.LOADERR, JOptionPane.ERROR_MESSAGE);
 			}
 			parentF.repaint();
 		});
-		menuItem = getMenuItem(fileMenu, NEW);
+		menuItem = getMenuItem(fileMenu, MenuButtons.NEW);
 		menuItem.addActionListener(actionEvent -> {
 			presentation.clear();
 			parentF.repaint();
 		});
-		menuItem = getMenuItem(fileMenu, SAVE);
+		menuItem = getMenuItem(fileMenu, MenuButtons.SAVE);
 		menuItem.addActionListener(e -> {
 			Accessor xmlAccessor = new XMLAccessor();
 			try {
-				xmlAccessor.saveFile(presentation, SAVEFILE);
+				xmlAccessor.saveFile(presentation, MenuButtons.SAVEFILE);
 			} catch (IOException exc) {
-				JOptionPane.showMessageDialog(parentF, IOEX + exc,
-						SAVEERR, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(parentF, MenuButtons.IOEX + exc,
+						MenuButtons.SAVEERR, JOptionPane.ERROR_MESSAGE);
 			}
 		});
 		fileMenu.addSeparator();
-		menuItem = getMenuItem(fileMenu, EXIT);
+		menuItem = getMenuItem(fileMenu, MenuButtons.EXIT);
 		menuItem.addActionListener(actionEvent -> presentation.exit(0));
 		add(fileMenu);
-		Menu viewMenu = new Menu(VIEW);
-		menuItem = getMenuItem(viewMenu, NEXT);
+		Menu viewMenu = new Menu(MenuButtons.VIEW);
+		menuItem = getMenuItem(viewMenu, MenuButtons.NEXT);
 		menuItem.addActionListener(actionEvent -> presentation.nextSlide());
-		menuItem = getMenuItem(viewMenu, PREV);
+		menuItem = getMenuItem(viewMenu, MenuButtons.PREV);
 		menuItem.addActionListener(actionEvent -> presentation.prevSlide());
 
 		//FIX: GO TO > LIMIT ON SLIDE COUNTER DONE!
-		menuItem = getMenuItem(viewMenu, GOTO);
+		menuItem = getMenuItem(viewMenu, MenuButtons.GOTO);
 		menuItem.addActionListener(actionEvent -> {
 			//FIX 24 Casting PAGENR to Object makes it redundant
-			String pageNumberStr = JOptionPane.showInputDialog(PAGENR);
+			String pageNumberStr = JOptionPane.showInputDialog(MenuButtons.PAGENR);
 			int pageNumber = Integer.parseInt(pageNumberStr);
 			//FIX 81 don't allow negative numbers and go back to first slide
 			if(pageNumber < 0){
@@ -115,8 +95,8 @@ public class MenuController extends MenuBar {
 			presentation.setSlideNumber(pageNumber - 1);
 		});
 		add(viewMenu);
-		Menu helpMenu = new Menu(HELP);
-		menuItem = getMenuItem(helpMenu, ABOUT);
+		Menu helpMenu = new Menu(MenuButtons.HELP);
+		menuItem = getMenuItem(helpMenu, MenuButtons.ABOUT);
 		menuItem.addActionListener(actionEvent -> AboutBox.show(parentF));
 		setHelpMenu(helpMenu);		//Needed for portability (Motif, etc.).
 	}
