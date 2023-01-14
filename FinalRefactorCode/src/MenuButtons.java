@@ -1,5 +1,7 @@
 import java.io.Serializable;
 
+//FIX 82 Data clump code smell fixed by implementing fields in another class (MenuController).
+
 public class MenuButtons implements Serializable {
     protected static final String ABOUT = "About";
     protected static final String FILE = "File";

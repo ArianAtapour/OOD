@@ -1,6 +1,8 @@
 import java.awt.*;
 import java.io.Serializable;
 
+//FIX 83 Data clump code smell fixed by implementing fields in another class (SlideViewerComponent).
+
 public class SlideViewerStyleProprieties implements Serializable {
     static final Color BGCOLOR = Color.white;
     static final Color COLOR = Color.black;

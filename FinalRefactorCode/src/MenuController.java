@@ -32,12 +32,32 @@ public class MenuController extends MenuBar {
 	@Serial
 	private static final long serialVersionUID = 227L;
 
+	private MenuItem menuItem;
+
+	private Menu fileMenu = new Menu(MenuButtons.FILE);
+
+	private Menu viewMenu = new Menu(MenuButtons.VIEW);
+
+	private Menu helpMenu = new Menu(MenuButtons.HELP);
+
 	public MenuController(Frame frame, Presentation pres) {
 		parentF = frame;
 		presentation = pres;
-		MenuItem menuItem;
-		Menu fileMenu = new Menu(MenuButtons.FILE);
 		//FIX 60-65 Extracted the assignment out of the expression (filemMenu.add)
+		//FIX 84 Extracted methods from constructor into separate methods
+		add(fileMenu);
+		openPresentation();
+		newPresentation();
+		savePresentation();
+		exitPresentation();
+		nextSlide();
+		previousSlide();
+		goToSlide();
+		help();
+		setHelpMenu(helpMenu);		//Needed for portability (Motif, etc.).
+	}
+
+	private void openPresentation(){
 		menuItem = getMenuItem(fileMenu, MenuButtons.OPEN);
 		//FIX 16 - 23 Used lambda expression for ActionListener to enable functional programming and improve functionality
 		menuItem.addActionListener(actionEvent -> {
@@ -52,11 +72,17 @@ public class MenuController extends MenuBar {
 			}
 			parentF.repaint();
 		});
+	}
+
+	private void newPresentation(){
 		menuItem = getMenuItem(fileMenu, MenuButtons.NEW);
 		menuItem.addActionListener(actionEvent -> {
 			presentation.clear();
 			parentF.repaint();
 		});
+	}
+
+	private void savePresentation(){
 		menuItem = getMenuItem(fileMenu, MenuButtons.SAVE);
 		menuItem.addActionListener(e -> {
 			Accessor xmlAccessor = new XMLAccessor();
@@ -67,16 +93,26 @@ public class MenuController extends MenuBar {
 						MenuButtons.SAVEERR, JOptionPane.ERROR_MESSAGE);
 			}
 		});
+	}
+
+	private void exitPresentation(){
 		fileMenu.addSeparator();
 		menuItem = getMenuItem(fileMenu, MenuButtons.EXIT);
 		menuItem.addActionListener(actionEvent -> presentation.exit(0));
 		add(fileMenu);
-		Menu viewMenu = new Menu(MenuButtons.VIEW);
+	}
+
+	private void nextSlide(){
 		menuItem = getMenuItem(viewMenu, MenuButtons.NEXT);
 		menuItem.addActionListener(actionEvent -> presentation.nextSlide());
+	}
+
+	private void previousSlide(){
 		menuItem = getMenuItem(viewMenu, MenuButtons.PREV);
 		menuItem.addActionListener(actionEvent -> presentation.prevSlide());
+	}
 
+	private void goToSlide(){
 		//FIX: GO TO > LIMIT ON SLIDE COUNTER DONE!
 		menuItem = getMenuItem(viewMenu, MenuButtons.GOTO);
 		menuItem.addActionListener(actionEvent -> {
@@ -95,10 +131,11 @@ public class MenuController extends MenuBar {
 			presentation.setSlideNumber(pageNumber - 1);
 		});
 		add(viewMenu);
-		Menu helpMenu = new Menu(MenuButtons.HELP);
+	}
+
+	private void help(){
 		menuItem = getMenuItem(helpMenu, MenuButtons.ABOUT);
 		menuItem.addActionListener(actionEvent -> AboutBox.show(parentF));
-		setHelpMenu(helpMenu);		//Needed for portability (Motif, etc.).
 	}
 
 	private MenuItem getMenuItem(Menu fileMenu, String open) {
