@@ -12,13 +12,14 @@ import javax.swing.JOptionPane;
 
 public class AboutBox {
     //FIX 51 Adding a private constructor to hide the implicit public one
-    private AboutBox(){
+    private AboutBox() {
         //We never really use this constructor so if it is used to throw an exception
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
     }
 
     //FIX 3 - String builder to ease the amount of text inside the method
     private static final StringBuilder textDelimited = new StringBuilder();
+
     private static String text() {
         textDelimited.append("JabberPoint is a primitive slide-show program in Java(tm). It\n")
                 .append("is freely copyable as long as you keep this notice and\n")
