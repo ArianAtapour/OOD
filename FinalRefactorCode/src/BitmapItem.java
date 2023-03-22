@@ -31,12 +31,13 @@ public class BitmapItem extends SlideItem {
     public BitmapItem(int level, String name) {
         super(level);
         imageName = name;
+        File img = new File(imageName); //Change to be labeled
         try {
-            bufferedImage = ImageIO.read(new File(imageName));
+            bufferedImage = ImageIO.read(img);
         }
         //FIX 55 Replacing the use of System.err with a logger to give the user an easy way to retrieve the logs INVALID
         catch (IOException e) {
-            System.err.println(FILE + imageName + NOTFOUND);
+            System.err.println(FILE + imageName + NOTFOUND + img.getAbsolutePath());
         }
     }
 

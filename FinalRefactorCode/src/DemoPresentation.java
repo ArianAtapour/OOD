@@ -7,6 +7,7 @@
 
 class DemoPresentation implements Accessor {
 
+    @Override
     public void loadFile(Presentation presentation, String unusedFilename) {
         presentation.setTitle("Demo Presentation");
         Slide slide;
@@ -41,7 +42,7 @@ class DemoPresentation implements Accessor {
         slide.append(2, "use File->Open from the menu.");
         slide.append(1, " ");
         slide.append(1, "This is the end of the presentation.");
-        slide.append(new BitmapItem(1, "./JabberPoint.jpg"));
+        slide.append(new BitmapItem(1, "assets/JabberPoint.jpg"));
         presentation.append(slide);
     }
 
