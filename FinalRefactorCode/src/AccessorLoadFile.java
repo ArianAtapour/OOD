@@ -14,9 +14,9 @@ import java.io.IOException;
  */
 
 //FIX 53 Converting the accessor class into an interface
-public interface Accessor {
+public interface AccessorLoadFile {
 	//FIX 4 - DEAD CODE DEMO_NAME AND DEFAULT_EXTENSION (NEVER USED)
-	static Accessor getDemoAccessor() {
+	static AccessorLoadFile getDemoAccessor() {
 		return new DemoPresentation();
 	}
 
@@ -25,6 +25,6 @@ public interface Accessor {
 	//Fix 54 Reordering modifiers to comply with the Java Language Specifications INVALID
 	void loadFile(Presentation p, String fn) throws IOException;
 
-	void saveFile(Presentation p, String fn) throws IOException;
+	//void saveFile(Presentation p, String fn) throws IOException;
 
 }

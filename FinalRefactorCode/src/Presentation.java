@@ -11,21 +11,23 @@ import java.util.ArrayList;
 
 public class Presentation {
     private String showTitle; //The title of the presentation
-    private ArrayList<Slide> showList = null; //An ArrayList with slides
+    private ArrayList<Slide> showList = new ArrayList<>(); //An ArrayList with slides
     private int currentSlideNumber = 0; //The number of the current slide
 
     //FIX 25 slideViewComponent initialiser null is redundant, so we removed the null
-    private SlideViewerComponent slideViewComponent; //The view component of the slides
+    //private SlideViewerComponent slideViewComponent; //The view component of the slides
 
     public Presentation() {
+        /*
         slideViewComponent = null;
         clear();
+        */
     }
 
-    public Presentation(SlideViewerComponent slideViewerComponent) {
+    /*public Presentation(SlideViewerComponent slideViewerComponent) {
         this.slideViewComponent = slideViewerComponent;
         clear();
-    }
+    }*/
 
     public int getSize() {
         return showList.size();
@@ -39,16 +41,20 @@ public class Presentation {
         showTitle = nt;
     }
 
-    public void setShowView(SlideViewerComponent slideViewerComponent) {
+    /*public void setShowView(SlideViewerComponent slideViewerComponent) {
         this.slideViewComponent = slideViewerComponent;
-    }
+    }*/
 
     //Returns the number of the current slide
     public int getSlideNumber() {
         return currentSlideNumber;
     }
 
+    public void setCurrentSlideNumber(int currentSlideNumber) {
+        this.currentSlideNumber = currentSlideNumber;
+    }
     //Change the current slide number and report it the the window
+    /*
     public void setSlideNumber(int number) {
         currentSlideNumber = number;
         if (slideViewComponent != null) {
@@ -76,6 +82,7 @@ public class Presentation {
         showList = new ArrayList<>();
         setSlideNumber(-1);
     }
+    */
 
     //Add a slide to the presentation
     public void append(Slide slide) {
@@ -89,6 +96,10 @@ public class Presentation {
         }
         //FIX 26 Casting showList.get() to Slide is redundant so remove the casting
         return showList.get(number);
+    }
+
+    public ArrayList<Slide> getShowList() {
+        return showList;
     }
 
     //Return the current slide

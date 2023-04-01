@@ -3,6 +3,7 @@ import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 //FIX 68 Removed Vector library since it is not needed anymore
+//FIX 91
 
 /**
  * <p>A slide. This class has drawing functionality.</p>

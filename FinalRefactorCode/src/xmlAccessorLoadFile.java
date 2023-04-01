@@ -1,11 +1,8 @@
-import java.util.ArrayList;
 //FIX 79 Removed Vector library since we don't use it anymore
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.FileWriter;
 
-import javax.xml.parsers.DocumentBuilder;
+        import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -23,7 +20,7 @@ import org.w3c.dom.NodeList;
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
 
-public class XMLAccessor implements Accessor {
+public class xmlAccessorLoadFile implements AccessorLoadFile {
 
     //FIX 9 -  DEAD CODE UNUSED PARAMETER DEFAULT_API_TO_USE
     //FIX 85 - Extracted XMLTags into a separate class
@@ -96,6 +93,7 @@ public class XMLAccessor implements Accessor {
         }
     }
 
+    /*
     public void saveFile(Presentation presentation, String filename) throws IOException {
         PrintWriter out = new PrintWriter(new FileWriter(filename));
         out.println("<?xml version=\"1.0\"?>");
@@ -130,4 +128,6 @@ public class XMLAccessor implements Accessor {
         out.println("</presentation>");
         out.close();
     }
+    */
+
 }

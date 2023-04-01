@@ -23,11 +23,17 @@ public class SlideViewerFrame extends JFrame {
     //FIX 77 Reordering modifiers
     public static final int HEIGHT = 800;
 
+    private SlideViewerComponent slideViewerComponent;
+
     public SlideViewerFrame(String title, Presentation presentation) {
         super(title);
-        SlideViewerComponent slideViewerComponent = new SlideViewerComponent(presentation, this);
-        presentation.setShowView(slideViewerComponent);
-        setupWindow(slideViewerComponent, presentation);
+        this.slideViewerComponent = new SlideViewerComponent(presentation, this);
+        //presentation.setShowView(slideViewerComponent);
+        setupWindow(slideViewerComponent, slideViewerComponent.getPresentation());
+    }
+
+    public SlideViewerComponent getSlideViewerComponent(){
+        return this.slideViewerComponent;
     }
 
     //Setup the GUI
@@ -42,8 +48,8 @@ public class SlideViewerFrame extends JFrame {
             }
         });
         getContentPane().add(slideViewerComponent);
-        addKeyListener(new KeyController(presentation)); //Add a controller
-        setMenuBar(new MenuController(this, presentation));    //Add another controller
+        addKeyListener(new KeyController(slideViewerComponent)); //Add a controller
+        setMenuBar(new MenuController(this, slideViewerComponent));    //Add another controller
         setSize(new Dimension(WIDTH, HEIGHT)); //Same sizes a slide has
         setVisible(true);
     }

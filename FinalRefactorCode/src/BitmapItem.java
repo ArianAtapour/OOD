@@ -31,7 +31,7 @@ public class BitmapItem extends SlideItem {
     public BitmapItem(int level, String name) {
         super(level);
         imageName = name;
-        File img = new File(imageName); //Change to be labeled
+        File img = new File(imageName); //FIX 86 Initializing image object and passing the path of it
         try {
             bufferedImage = ImageIO.read(img);
         }

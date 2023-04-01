@@ -9,6 +9,8 @@ import java.io.Serial;
 
 import javax.swing.JOptionPane;
 
+//FIX 91
+
 /**
  * <p>The controller for the menu</p>
  *
@@ -23,9 +25,11 @@ public class MenuController extends MenuBar {
     //FIX 14 Making presentation variable final
 
     //FIX 59 Making presentation variable transient
-    private final transient Presentation presentation; //Commands are given to the presentation
+    //private final transient Presentation presentation; //Commands are given to the presentation
 
     //FIX 15 Using @Serial annotation for serialVersionUID to give compile-time assurance
+
+    private SlideViewerComponent slideViewerComponent;
     @Serial
     private static final long serialVersionUID = 227L;
 
@@ -37,9 +41,10 @@ public class MenuController extends MenuBar {
 
     private final Menu helpMenu = new Menu(MenuButtons.HELP);
 
-    public MenuController(Frame frame, Presentation pres) {
-        parentF = frame;
-        presentation = pres;
+    public MenuController(Frame frame, SlideViewerComponent slideViewerComponent) {
+        this.parentF = frame;
+        //presentation = pres;
+        this.slideViewerComponent = slideViewerComponent;
         //FIX 60-65 Extracted the assignment out of the expression (filemMenu.add)
         //FIX 84 Extracted methods from constructor into separate methods
         add(fileMenu);
@@ -58,11 +63,11 @@ public class MenuController extends MenuBar {
         menuItem = getMenuItem(fileMenu, MenuButtons.OPEN);
         //FIX 16 - 23 Used lambda expression for ActionListener to enable functional programming and improve functionality
         menuItem.addActionListener(actionEvent -> {
-            presentation.clear();
-            Accessor xmlAccessor = new XMLAccessor();
+            slideViewerComponent.clear();
+            AccessorLoadFile xmlAccessorLoadFile = new xmlAccessorLoadFile();
             try {
-                xmlAccessor.loadFile(presentation, MenuButtons.TESTFILE);
-                presentation.setSlideNumber(0);
+                xmlAccessorLoadFile.loadFile(slideViewerComponent.getPresentation(), MenuButtons.TESTFILE);
+                slideViewerComponent.setSlideNumber(0);
             } catch (IOException exc) {
                 JOptionPane.showMessageDialog(parentF, MenuButtons.IOEX + exc,
                         MenuButtons.LOADERR, JOptionPane.ERROR_MESSAGE);
@@ -74,7 +79,7 @@ public class MenuController extends MenuBar {
     private void newPresentation() {
         menuItem = getMenuItem(fileMenu, MenuButtons.NEW);
         menuItem.addActionListener(actionEvent -> {
-            presentation.clear();
+            slideViewerComponent.clear();
             parentF.repaint();
         });
     }
@@ -82,9 +87,9 @@ public class MenuController extends MenuBar {
     private void savePresentation() {
         menuItem = getMenuItem(fileMenu, MenuButtons.SAVE);
         menuItem.addActionListener(e -> {
-            Accessor xmlAccessor = new XMLAccessor();
+            AccessorSaveFile xmlAccessorSaveFile = new xmlAccessorSaveFile();
             try {
-                xmlAccessor.saveFile(presentation, MenuButtons.SAVEFILE);
+                xmlAccessorSaveFile.saveFile(slideViewerComponent.getPresentation(), MenuButtons.SAVEFILE);
             } catch (IOException exc) {
                 JOptionPane.showMessageDialog(parentF, MenuButtons.IOEX + exc,
                         MenuButtons.SAVEERR, JOptionPane.ERROR_MESSAGE);
@@ -95,18 +100,18 @@ public class MenuController extends MenuBar {
     private void exitPresentation() {
         fileMenu.addSeparator();
         menuItem = getMenuItem(fileMenu, MenuButtons.EXIT);
-        menuItem.addActionListener(actionEvent -> presentation.exit(0));
+        menuItem.addActionListener(actionEvent -> slideViewerComponent.getPresentation().exit(0));
         add(fileMenu);
     }
 
     private void nextSlide() {
         menuItem = getMenuItem(viewMenu, MenuButtons.NEXT);
-        menuItem.addActionListener(actionEvent -> presentation.nextSlide());
+        menuItem.addActionListener(actionEvent -> slideViewerComponent.nextSlide());
     }
 
     private void previousSlide() {
         menuItem = getMenuItem(viewMenu, MenuButtons.PREV);
-        menuItem.addActionListener(actionEvent -> presentation.prevSlide());
+        menuItem.addActionListener(actionEvent -> slideViewerComponent.prevSlide());
     }
 
     private void goToSlide() {
@@ -121,11 +126,11 @@ public class MenuController extends MenuBar {
                 pageNumber = 1;
             }
 
-            if (pageNumber > presentation.getSize()) {
-                pageNumber = presentation.getSize();
-                presentation.setSlideNumber(presentation.getSize() - 1);
+            if (pageNumber > slideViewerComponent.getPresentation().getSize()) {
+                pageNumber = slideViewerComponent.getPresentation().getSize();
+                slideViewerComponent.setSlideNumber(slideViewerComponent.getPresentation().getSize() - 1);
             }
-            presentation.setSlideNumber(pageNumber - 1);
+            slideViewerComponent.setSlideNumber(pageNumber - 1);
         });
         add(viewMenu);
     }
