@@ -23,7 +23,7 @@ public class SlideViewerComponent extends JComponent implements FontCreator{
     //private final Font labelFont; //The font for labels
     //FIX 33 presentation variable set to null is redundant
     //FIX 72 Making presentation variable transient
-    private Presentation presentation = null; //The presentation
+    private Presentation presentation; //The presentation
     //FIX 34 frame variable set to null is redundant
     //FIX 35 frame variable is final so make it final
     private final JFrame frame;
